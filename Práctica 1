@@ -1,0 +1,6 @@
+  .ORG 1000H
+  LXI H,1200H
+  MVI M,3
+  LXI H,1201H
+  MVI M,5
+  HLT
