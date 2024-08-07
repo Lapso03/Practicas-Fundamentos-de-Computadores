@@ -1,0 +1,13 @@
+;Suma dos números en memoria y el resultado se ajusta en BCD y también se guarda en memoria.
+;El programa se ha probado con datos cuya suma sea mayor y menor que 10 para comprobar el ajuste en BCD.
+;22/03/2022
+;Sergio Buil Laliena
+  .ORG 1000H
+  LXI H,1200H
+  MVI M,3
+  LXI H,1201H
+  MVI M,5
+  LDA 1200H 			;Carga en el acumulador.
+  ADD M 				;Suma lo que hay en el acumulador con el par de registros HL.
+  DAA 					;Pasa a BCD lo que haya en el acumulador.
+  STA 1202H 			;Mueve lo que hay en el acumulador a memoria.
