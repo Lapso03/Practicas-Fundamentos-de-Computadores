@@ -1,0 +1,71 @@
+;Autor: Sergio Buil Laliena
+;Compañeros:  Carlos Gimeno Ramón, Luna Tejedor Rodríguez y Judith Vinós Salgado.
+;Fecha : 3/5/2022
+;Descripción: Programa que realiza la tabla de multiplicar de un número introducido por teclado, al principio de este el programa espera a que se detecte una interrupción por teclado para comenzar la tabla de multiplicar.
+;Solo vale con los números del 1 al 9.
+		 
+.ORG 1000H
+INTER:
+	MVI A, 08H
+	SIM
+	EI
+	JMP 1003H
+
+	.ORG 2CH
+	IN 00H
+	SUI 30H
+	JZ FIN
+	JMP 1100H
+
+	.ORG 1100H
+	LXI H,1200H
+	MOV M,A
+	MVI D,1
+	LXI H,1201H
+	MVI M,00
+
+INICIO:
+	MOV E,D
+	LDA 1200H
+	MOV B,A
+	MVI C,0
+UNO:
+	JC ACARREO
+	MOV A,E
+	RAR
+	MOV E,A
+	JC DOS
+	INR C
+	MOV A,B
+	RLC
+	MOV B,A
+	JMP COMPROBAR
+DOS:
+	INR C
+	MOV A,B
+	ADD M
+
+	MOV M,A
+	MOV A,B
+	RLC
+	MOV B,A
+COMPROBAR:
+	MOV A,C
+	CPI 4
+	JZ NUEVOMULTI
+	JMP UNO
+FIN:
+	HLT
+ACARREO:
+	CMC
+	JMP UNO
+NUEVOMULTI:
+	MOV A,D
+	CPI 9
+	MOV D,A
+
+	JZ 1000H
+	INR D
+	INX H
+	MVI M,00
+	JMP INICIO 
