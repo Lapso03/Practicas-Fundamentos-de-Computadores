@@ -6,7 +6,7 @@ En este repositorio van a estar las prácticas que hice el curso 2021-2022 sobre
 
 1. La primera práctica simplemente consistía en cambiar el valor de dos posiciones de memoria con un número diferente en cada uno, en nuestro caso fue con un 3 en la dirección 1200H y un 5 en la dirección 1201H.
 
-2. La segunda práctica consistía en hacer lo mismo que en la primera pero con un 9 y un 10, en vez de un 3 y un 5, pero debíamos hacerlo con el simulador en vez de con el microprocesador en clase. Por tanto esta práctica nos sirvió para entender a cómo usar el simulador (Añadiré una imagen del simulador al final de la descripción de las prácticas).
+2. La segunda práctica consistía en hacer lo mismo que en la primera pero con un 9 y un 10, en vez de un 3 y un 5, pero debíamos hacerlo con el simulador en vez de con el microprocesador en clase. Por tanto esta práctica nos sirvió para entender a cómo usar el simulador.
 
 3. La tercera práctica consistía en sumar dos números en memoria y el resultado ajustarlo a [BCD](https://es.wikipedia.org/wiki/Decimal_codificado_en_binario) y guardarlo en la memoria en otra dirección. Además, a partir de esta práctica ya tuvimos que saber demostrar que podíamos hacerlo tanto en el simulador como en el microprocesador con el teclado.
 
@@ -21,3 +21,8 @@ En este repositorio van a estar las prácticas que hice el curso 2021-2022 sobre
 > Por si alguien quiere entender mejor cómo hemos hecho las siguientes prácticas puede mirar esta página en la que hay recopilados todos los comandos que hemos usado para resolver los ejercicios [Comandos ensamblador](https://exa.unne.edu.ar/ingenieria/circuitos_logicos/archivos/instrucciones8085.pdf) o este repositorio de GitHub en el que está el manual donde se explica para qué sirve cada comando y cómo usarlo [Manual del Intel 8085](https://github.com/Mervill/Net8080/blob/master/docs/Intel%208080-8085%20Assembly%20Language%20Programming%201977%20Intel.pdf)
 >
 > Además, por si alguien quiere saber cómo funciona el algoritmo de suma por desplazamiento puede ver [este video](https://www.youtube.com/watch?v=T_r0B_uYdO4) de la universidad Rey Juan Carlos de Madrid en el que se explica cómo se hace en papel. Nuestra solución es con los registros, pero también tuvimos que hacerlo a papel.
+
+
+El simulador que usamos fue este:
+
+![Simulador 8085](https://github.com/Lapso03/Practicas-Fundamentos-de-Computadores/blob/main/Simulador%208085.png)
