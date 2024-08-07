@@ -1,0 +1,67 @@
+;Sergio Buil Laliena
+;DEFINICION DEL PROGRAMA: lee el número introducido por teclado por el usuario y realiza la tabla de multiplicar.
+;Fecha: 17 de Mayo de 2022
+;PRUEBAS REALIZADAS
+;REGISTROS USADOS PARA GUARDAR DATOS:
+;E: contador de bits y de sumas
+;A: Acumulador
+;C: resultado y multiplicador (m)
+;D: resta y Multiplicando (M)
+;RST 5.5 Interrupción asignada al TECLADOà.org 2ch
+
+    .ORG 1000H
+    MVI E, 01h ;Contador de bits y de sumas
+    MOV A, E ;Muevo E al acumulador (A)
+    OUT 01H ;inicializar el puerto 01H a B'00000000'
+    LXI SP, 2000H ;Carga la pila
+    MVI A, 08H ;xxxx1000 Habilitar todas las interrupciones
+    SIM ;Desenmascarar interrupciones
+inicio:
+    EI ;Habilita las interrupciones
+    RIM
+    JMP inicio ;Vuelve a inicio
+    .ORG 02CH ;Interrupción del teclado
+    LXI H,1200H ;Cargamos la primera dirección de memoria
+    MVI M,00H ;La vaciamos (por si se está haciendo una nueva tabla)
+    IN 00H ;Puerto de entrada
+    CPI 30H ;Comprueba si es un 0 (fin del programa)
+    JZ FIN
+    MVI D,30H ;Mueve 30 al registro D (para restarlo al acumulador)
+    SUB D ;Resta al acumulador lo que vale D
+    MOV D,A ;Multiplicando (M)
+    MVI C,1 ;Multiplicador (m)
+    MVI E,10 ;Numero de veces
+FOTRO:
+    PUSH B ;Inserta los Registros B y C en la pila
+    PUSH D ;Nos interesa guardar E
+    CALL FMULT ;Llamada a la función FMULT
+    INX H ;Incrementamos H para
+    MOV M,C ;C es donde en la rutina se da el resultado
+    POP D ;Saca el valor de D de la pila
+    POP B ;Saca el valor de B de la pila
+    INR C ;Incrementa C en 1
+    DCR E ;Decrementamos el contador
+    JNZ FOTRO ;Si lo anterior es 0, salta a FOTRO
+    RET ;Devuelve el control a quien lo llamó
+;Bibliografia:
+;Intel 8080-8085 Assembly Language Programming 1977 Intel , Página 176.
+FMULT:
+    MVI B,0 ;Inicializamos B a 0
+    MVI E,9 ;Contador de 8Bits + 1 ya que hacemos un decremento
+FMULT0:
+    MOV A,C ;Rota el bit menos significativo
+    RAR ;Multiplica al carry y rota
+    MOV C,A ;Resultado
+    DCR E
+    JZ DONE ;Sale si se ha completado E=0
+    MOV A,B ;Mueve B al acumulador
+    JNC FMULT1 ;Salto a FMULT1
+    ADD D ;Suma D
+FMULT1:
+    RAR ;Carry
+    MOV B, A ;Mueve el acumulador a B
+    JMP FMULT0 ;Hace un salto a FMULT0
+DONE:
+    RET ;Devuelve el control
+FIN:
+    HLT ;Finaliza el programa
