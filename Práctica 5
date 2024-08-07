@@ -1,0 +1,49 @@
+;Autor: Sergio Buil Laliena
+;Fecha: 26 de Abril de 2022
+;Descripción: El programa realiza la tabla de multiplicar de un número elegido por el usuario.
+;Probado con los números del 1 al 9.
+	.ORG 1000H
+	LXI H,1200H
+	MVI M,6
+	LXI H,1201H
+	MVI D,1
+INICIO:
+	MOV E,D
+	MVI B,6
+	MVI C,0
+MULTIPLICACION:
+	JC CY
+	MOV A,E
+	RAR
+	MOV E,A
+	JC OP1
+	INR C
+	MOV A,B
+	RLC
+	MOV B,A
+	JMP COMPROBACION
+OP1:
+	INR C
+	MOV A,B
+	ADD M
+	MOV M,A
+	MOV A,B
+	RLC
+	MOV B,A
+COMPROBACION:
+	MOV A,C
+	CPI 4
+	JZ TABLA
+	JMP MULTIPLICACION
+FIN:
+	HLT
+CY:
+	CMC
+	JMP MULTIPLICACION
+TABLA:
+	MOV A,D
+	CPI 9
+	JZ FIN
+	INR D
+	INX H
+	JMP INICIO
